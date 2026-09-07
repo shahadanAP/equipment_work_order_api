@@ -15,3 +15,13 @@ Content-Type: application/json
 }
 
 ###
+
+POST {{EquipmentApi_HostAddress}}/api/crew
+Content-Type: application/json
+
+{
+    "crewName" : "windMillCrew",
+    "amountOfMembers" : 10
+}
+
+###
