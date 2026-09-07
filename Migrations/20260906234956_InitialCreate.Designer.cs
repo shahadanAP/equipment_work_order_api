@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EquipmentApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260906230954_InitialCreate")]
+    [Migration("20260906234956_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -121,6 +121,10 @@ namespace EquipmentApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CrewId");
+
+                    b.HasIndex("EquipmentId");
+
                     b.ToTable("WorkOrders");
                 });
 
@@ -133,6 +137,25 @@ namespace EquipmentApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Crew");
+                });
+
+            modelBuilder.Entity("EquipmentApi.Models.WorkOrders", b =>
+                {
+                    b.HasOne("EquipmentApi.Models.Crew", "Crew")
+                        .WithMany()
+                        .HasForeignKey("CrewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EquipmentApi.Models.Equipment", "Equipment")
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Crew");
+
+                    b.Navigation("Equipment");
                 });
 #pragma warning restore 612, 618
         }

@@ -118,6 +118,10 @@ namespace EquipmentApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CrewId");
+
+                    b.HasIndex("EquipmentId");
+
                     b.ToTable("WorkOrders");
                 });
 
@@ -130,6 +134,25 @@ namespace EquipmentApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Crew");
+                });
+
+            modelBuilder.Entity("EquipmentApi.Models.WorkOrders", b =>
+                {
+                    b.HasOne("EquipmentApi.Models.Crew", "Crew")
+                        .WithMany()
+                        .HasForeignKey("CrewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EquipmentApi.Models.Equipment", "Equipment")
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Crew");
+
+                    b.Navigation("Equipment");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,5 +8,9 @@ namespace EquipmentApi.Models{
         public DateTime DateOfWork { get; set;}
         public bool EquipmentAssigned { get; set; }
         public string Status{ get; set; }
+
+        public Crew Crew {get; set;}
+
+        public Equipment Equipment{ get; set;}
     }
 }

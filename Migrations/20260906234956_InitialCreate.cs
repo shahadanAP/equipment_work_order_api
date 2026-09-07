@@ -41,23 +41,6 @@ namespace EquipmentApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkOrders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CrewId = table.Column<int>(type: "int", nullable: false),
-                    EquipmentId = table.Column<int>(type: "int", nullable: false),
-                    DateOfWork = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EquipmentAssigned = table.Column<bool>(type: "bit", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WorkOrders", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CrewMembers",
                 columns: table => new
                 {
@@ -78,10 +61,49 @@ namespace EquipmentApi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "WorkOrders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CrewId = table.Column<int>(type: "int", nullable: false),
+                    EquipmentId = table.Column<int>(type: "int", nullable: false),
+                    DateOfWork = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EquipmentAssigned = table.Column<bool>(type: "bit", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkOrders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkOrders_Crew_CrewId",
+                        column: x => x.CrewId,
+                        principalTable: "Crew",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_WorkOrders_Equipment_EquipmentId",
+                        column: x => x.EquipmentId,
+                        principalTable: "Equipment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CrewMembers_CrewId",
                 table: "CrewMembers",
                 column: "CrewId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkOrders_CrewId",
+                table: "WorkOrders",
+                column: "CrewId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkOrders_EquipmentId",
+                table: "WorkOrders",
+                column: "EquipmentId");
         }
 
         /// <inheritdoc />
@@ -91,13 +113,13 @@ namespace EquipmentApi.Migrations
                 name: "CrewMembers");
 
             migrationBuilder.DropTable(
-                name: "Equipment");
-
-            migrationBuilder.DropTable(
                 name: "WorkOrders");
 
             migrationBuilder.DropTable(
                 name: "Crew");
+
+            migrationBuilder.DropTable(
+                name: "Equipment");
         }
     }
 }
