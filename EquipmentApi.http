@@ -4,3 +4,14 @@ GET {{EquipmentApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+POST {{EquipmentApi_HostAddress}}/api/equipment
+Content-Type: application/json
+
+{
+    "equipmentName" : "JCB",
+    "equipmentAmount" : 2,
+    "equipmentMake": "Samsung"
+}
+
+###
