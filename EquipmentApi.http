@@ -5,22 +5,21 @@ Accept: application/json
 
 ###
 
-POST {{EquipmentApi_HostAddress}}/api/equipment
-Content-Type: application/json
-
-{
-    "equipmentName" : "JCB",
-    "equipmentAmount" : 2,
-    "equipmentMake": "Samsung"
-}
+DELETE {{EquipmentApi_HostAddress}}/api/equipment/2
 
 ###
 
-POST {{EquipmentApi_HostAddress}}/api/crew
+DELETE {{EquipmentApi_HostAddress}}/api/equipment/3
+
+
+###
+
+PUT {{EquipmentApi_HostAddress}}/api/crew
+
 Content-Type: application/json
 
 {
-    "crewName" : "windMillCrew",
+    "crewName" : " Cementing Crew ",
     "amountOfMembers" : 10
 }
 
